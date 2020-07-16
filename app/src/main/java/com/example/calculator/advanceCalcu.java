@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class advanceCalcu extends AppCompatActivity implements View.OnClickListener {
     Button btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine, btnZero, btnPoint, btnMean, btnMedian, btnMode ,  btnEquals, btnClear, btnDelete;
     EditText editText;
@@ -111,26 +114,71 @@ public class advanceCalcu extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnMean:
                 String value = editText.getText().toString();
-                value.replace(",", "0");
-                int[] invalue = new int[]{Integer.parseInt(value)};
-                int num_value=invalue.length;
-                double tot=0;
-                double mean=0;
-                    for(int i=0; i<num_value; i++){
-                        tot = tot+invalue[i];
+                value.replace(",", "");
+                String[] result = new String[0];
+                boolean bb = true;
+                if (value != "") {
+                    result = value.split(",");
+                }
+                for (int i = 0; i < result.length; i++) {
+                    String d = result[i];
+                    if (d.equalsIgnoreCase(toString()) || d == "") {
+                        Toast.makeText(this, "Not A Number", Toast.LENGTH_SHORT).show();
+                        bb = false;
                     }
+                    if (bb == true) {
+                        int len = result.length;
+                        int mean = 0;
+                        int total = len;
 
-                mean = tot/num_value;
-                editText.setText(mean + "");
+                        //mean calculation
+                        for (int counter = 0; counter < total; counter++) {
+                            mean = (int) (mean + Float.parseFloat(result[counter]));
+                        }
+                        float ii = mean / total;
+                        float finalres = Math.round(ii * 100000 / 100000);
+                        editText.setText(finalres + "");
 
-            break;
+                    }
+                }
+
+                break;
 
             case R.id.btnMode:
 
-            break;
 
+                break;
             case R.id.btnMedian:
+                String value1 = editText.getText().toString();
+                value1.replace(",", "");
+                String[] result1 = new String[0];
+                boolean bb1 = true;
+                if (value1 != "") {
+                    result1 = value1.split(",");
+                }
+                for (int i = 0; i < result1.length; i++) {
+                    String d1 = result1[i];
+                    if (d1.equalsIgnoreCase(toString()) || d1 == "") {
+                        Toast.makeText(this, "Not A Number", Toast.LENGTH_SHORT).show();
+                        bb = false;
+                    }
+                    if (bb1 == true) {
+                        int len1 = result1.length;
+                        int median = 0;
+                        int total1 = len1;
 
+                        //median calculation
+                        Arrays.sort(result1);
+                        if (total1%2 == 0){
+                            float sdd = Float.parseFloat(result1[(total1/2) -1]) + Float.parseFloat(result1[total1/2]);
+                            median = Integer.parseInt(result1[(total1 - 1)/2]);
+                        } else{
+
+                            median = Integer.parseInt(result1[(total1-1)/2]);
+                        }
+                        editText.setText(median + "");
+                    }
+                }
             break;
 
             case R.id.btnClear:
