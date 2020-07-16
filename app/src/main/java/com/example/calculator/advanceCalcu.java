@@ -145,9 +145,52 @@ public class advanceCalcu extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnMode:
-
-
+                String value2 = editText.getText().toString();
+                value2.replace(",", "");
+                String[] result2 = new String[0];
+                boolean bb2 = true;
+                if (value2 != "") {
+                    result2 = value2.split(",");
+                }
+                for (int i = 0; i < result2.length; i++) {
+                    String d = result2[i];
+                    if (d.equalsIgnoreCase(toString()) || d == "") {
+                        Toast.makeText(this, "Not A Number", Toast.LENGTH_SHORT).show();
+                        bb2 = false;
+                    }
+                    if (bb2 == true) {
+                        int len2 = result2.length;
+                        int mode = 0;
+                        int max = 0;
+                        int total2 = len2;
+                        int curve = Integer.parseInt(result2[0]);
+                        int countmode = 0;
+                    for (int z =0; z<= len2; z++){
+                        int fval = Integer.parseInt(result2[z]);
+                        if (fval == curve){
+                            mode = mode + 1;
+                            if (mode > max){
+                                mode = curve;
+                                max = mode;
+                                countmode++;
+                            }
+                        }else {
+                            if (mode == max && mode != curve){
+                               mode = mode+ curve;
+                               countmode++;
+                            }
+                            curve = fval;
+                            mode = 1;
+                        }
+                    }
+                        if (total2 == countmode){
+                            Toast.makeText(this,"No mode set",Toast.LENGTH_SHORT).show();
+                        }
+                        editText.setText(mode + "");
+                    }
+                }
                 break;
+
             case R.id.btnMedian:
                 String value1 = editText.getText().toString();
                 value1.replace(",", "");
