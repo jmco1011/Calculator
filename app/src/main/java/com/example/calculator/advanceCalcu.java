@@ -3,6 +3,7 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.ArrayAdapter;
@@ -67,43 +68,80 @@ public class advanceCalcu extends AppCompatActivity implements View.OnClickListe
             case R.id.btnOne:
                 editText.setText(editText.getText() + "1");
                 break;
+
             case R.id.btnTwo:
                 editText.setText(editText.getText() + "2");
                 break;
+
             case R.id.btnThree:
                 editText.setText(editText.getText() + "3");
                 break;
+
             case R.id.btnFour:
                 editText.setText(editText.getText() + "4");
                 break;
+
             case R.id.btnFive:
                 editText.setText(editText.getText() + "5");
                 break;
+
             case R.id.btnsSix:
                 editText.setText(editText.getText() + "6");
                 break;
+
             case R.id.btnSeven:
                 editText.setText(editText.getText() + "7");
                 break;
+
             case R.id.btnEight:
                 editText.setText(editText.getText() + "8");
                 break;
+
             case R.id.btnNine:
                 editText.setText(editText.getText() + "9");
                 break;
+
             case R.id.btnZero:
                 editText.setText(editText.getText() + "0");
                 break;
+
             case R.id.btnPoint:
                 editText.setText(editText.getText() + ",");
                 break;
-            case R.id.btnMean:
-               String getInput = editText.getText().toString();
-               Integer inn = Integer.parseInt(getInput);
-               int[] ii = new int[]{inn};
 
-               editText.setText(ii + "");
-               break;
+            case R.id.btnMean:
+                String value = editText.getText().toString();
+                value.replace(",", "0");
+                int[] invalue = new int[]{Integer.parseInt(value)};
+                int num_value=invalue.length;
+                double tot=0;
+                double mean=0;
+                    for(int i=0; i<num_value; i++){
+                        tot = tot+invalue[i];
+                    }
+
+                mean = tot/num_value;
+                editText.setText(mean + "");
+
+            break;
+
+            case R.id.btnMode:
+
+            break;
+
+            case R.id.btnMedian:
+
+            break;
+
+            case R.id.btnClear:
+                editText.setText(null);
+                break;
+            case R.id.btnDelete:
+                Editable numinput = editText.getText();
+                if (numinput.length()>0){
+                    numinput.delete(numinput.length() - 1, numinput.length());
+                    editText.setText(numinput);
+                }
         }
     }
 }
